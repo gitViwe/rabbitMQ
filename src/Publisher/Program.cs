@@ -6,22 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMassTransit(configure =>
 {
-    configure.AddConsumers(typeof(TicketConsumer).Assembly);
     configure.UsingRabbitMq((context, config) =>
     {
         config.Host("localhost", host =>
         {
             host.Username("guest");
             host.Password("guest");
-        });
-        config.ReceiveEndpoint("ticketQueue", endpoint =>
-        {
-            endpoint.PrefetchCount = 16;
-            endpoint.UseMessageRetry(retry =>
-            {
-                retry.Interval(3, 500);
-            });
-            endpoint.ConfigureConsumer<TicketConsumer>(context);
         });
     });
 });
@@ -39,11 +29,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
 app.MapPost("/create-ticket", async Task<IResult> (Ticket ticket, IBus bus) =>
 {
