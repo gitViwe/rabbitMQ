@@ -23,4 +23,4 @@ Things you need to use the software and how to install them.
 ## Getting Started
 
 First you need to run RabbitMQ management service, docker will make this easy
-Run `docker compose up -d` on the root folder, then you can go to http://localhost:15672 in a browser.
+Run `docker compose up -d` on the root folder, then you can go to http://localhost:15672 in a browser with the default username and password of `guest / guest`.
