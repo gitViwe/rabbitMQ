@@ -1,6 +1,5 @@
 using MassTransit;
 using Shared;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +45,7 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapPost("/create-ticket", async Task<IResult>(Ticket ticket, IBus bus) =>
+app.MapPost("/create-ticket", async Task<IResult> (Ticket ticket, IBus bus) =>
 {
     if (ticket != null)
     {
